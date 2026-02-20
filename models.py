@@ -4,6 +4,7 @@ from enum import Enum, auto
 class PaletteStatus(Enum):
     STANDBY = "standby"
     STORED = "stored"
+    INTRANSIT = "in transit"
 
 class ProductCategory:
     def __init__(self, category_id: str, name: str, inventory: int = 0):
@@ -64,7 +65,7 @@ class Notification:
         print(f"Νέο προτεινόμενο ράφι: {new_shelf.shelf_id}")
 
 class Driver:
-    def __init__(self, driver_id: int, first_name: str):
+    def __init__(self, driver_id: int, first_name: str, last_name: str):
         self.driver_id = driver_id
         self.first_name = first_name
 
@@ -87,3 +88,11 @@ class Driver:
         
         print(f"Η τοποθέτηση της παλέτας {palette.barcode} ολοκληρώθηκε επιτυχώς.")
         return True
+
+class Employee:
+    def __init__(self, employee_id, first_name: str, last_name: str):
+        self.employee_id = employee_id
+        self.first_name = first_name
+        self.last_name = last_name
+    
+
