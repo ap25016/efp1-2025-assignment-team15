@@ -23,10 +23,6 @@ class ProductCategory:
         self.product_inventory += amount
         print(f"Νέο Απόθεμα Kατηγορίας {self.category_name}: {self.product_inventory}")
 
-# Δημιουργία δοκιμαστικής κατηγορίας
-Ηλεκτρονικά = ProductCategory("CAT-001", "Ηλεκτρονικά", 2)
-print(Ηλεκτρονικά)
-
 class Shelf:
     def __init__(self, shelf_id: int, capacity: int = 10):
         self.shelf_id = shelf_id
@@ -58,10 +54,6 @@ class Palette:
         self.placement_time = datetime.now()
         self.palette_status = PaletteStatus.STORED
         print(f"Δεδομένα παλέτας {self.barcode} αποθηκεύτηκαν στη βάση.")
-
-# Δημιουργία δοκιμαστικής παλέτας
-TestPalette1 = Palette("0123456789", Ηλεκτρονικά)
-print(TestPalette1)
 
 class Notification:
     def __init__(self, notification_id: int):
