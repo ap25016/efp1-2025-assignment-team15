@@ -2,19 +2,30 @@ from datetime import datetime
 
 from enum import Enum, auto
 class PaletteStatus(Enum):
-    STANDBY = "standby"
-    STORED = "stored"
-    INTRANSIT = "in transit"
+    STANDBY = "Standby"
+    STORED = "Stored"
+    INTRANSIT = "In Transit"
+    DAMAGED = "Damaged"
 
 class ProductCategory:
-    def __init__(self, category_id: str, name: str, inventory: int = 0):
+    def __init__(self, category_id: str, category_name: str, product_inventory: int):
         self.category_id = category_id
-        self.category_name = name
-        self.product_inventory = inventory
+        self.category_name = category_name
+        self.product_inventory = product_inventory
+
+    def __str__(self) -> str: # String representation of product category
+        return f"{self.category_id}: {self.category_name} (Inventory: {self.product_inventory})"
+
+    def check_inventory(self):
+        print(self)
 
     def update_stock(self, amount: int):
         self.product_inventory += amount
-        print(f"Απόθεμα κατηγορίας {self.category_name} ενημερώθηκε: {self.product_inventory}")
+        print(f"Νέο Απόθεμα Kατηγορίας {self.category_name}: {self.product_inventory}")
+
+# Δημιουργία δοκιμαστικής κατηγορίας
+Ηλεκτρονικά = ProductCategory("CAT-001", "Ηλεκτρονικά", 2)
+print(Ηλεκτρονικά)
 
 class Shelf:
     def __init__(self, shelf_id: int, capacity: int = 10):
@@ -30,19 +41,27 @@ class Shelf:
         print(f"Ράφι {self.shelf_id} περιεχόμενο: {self.shelf_inventory}/{self.capacity}")
 
 class Palette:
-    def __init__(self, barcode: str, category: ProductCategory):
+    def __init__(self, barcode: str, category: ProductCategory): 
         self.barcode = barcode
-        self.category = category
+        self.category = category #ΕΔΩ ΘΕΛΕΙ ΝΑ ΕΙΣΑΓΟΥΜΕ ΤΟ ΟΝΟΜΑ ΕΝΟΣ ΑΝΤΙΚΕΙΜΕΝΟΥ ΤΗΣ ΚΛΑΣΗΣ ProductCategory
         self.arrival_time = datetime.now()
         self.placement_time = None
         self.palette_status = PaletteStatus.STANDBY
         self.shelf = None
+
+    def __str__(self) -> str: # String representation of employee
+        return (f"Παλέτα: {self.barcode} Κατηγορία: {self.category.category_name} ({self.category.category_id})"
+                f" Status: {self.palette_status.value}, Assigned Shelf: {self.shelf}")
 
     def save_data(self, shelf: Shelf):
         self.shelf = shelf
         self.placement_time = datetime.now()
         self.palette_status = PaletteStatus.STORED
         print(f"Δεδομένα παλέτας {self.barcode} αποθηκεύτηκαν στη βάση.")
+
+# Δημιουργία δοκιμαστικής παλέτας
+TestPalette1 = Palette("0123456789", Ηλεκτρονικά)
+print(TestPalette1)
 
 class Notification:
     def __init__(self, notification_id: int):
@@ -90,9 +109,13 @@ class Driver:
         return True
 
 class Employee:
-    def __init__(self, employee_id, first_name: str, last_name: str):
+    def __init__(self, employee_id: int, first_name: str, last_name: str):
         self.employee_id = employee_id
         self.first_name = first_name
         self.last_name = last_name
+
+    def __str__(self) -> str: # String representation of employee
+        return f"{self.employee_id}: {self.first_name} {self.last_name}"
+
     
 
