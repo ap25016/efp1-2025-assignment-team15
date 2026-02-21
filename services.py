@@ -1,4 +1,4 @@
-from models import Shelf, Palette, ProductCategory, Notification, Driver
+from models import Shelf, Palette, ProductCategory, Notification, Driver, Employee
 
 class WarehouseSystem:
      def __init__(self):
@@ -21,11 +21,11 @@ class WarehouseSystem:
 
      def _seed_demo_data(self) -> None:
          """Δημιουργεί έτοιμα δεδομένα για τις δοκιμές."""
-         self.add_employee(101, Μαρία, Παπαδοπούλου) #Όπως στο σενάριο στο README
-         self.add_driver(201, Δημήτρης, Νικολάου) #Όπως στο σενάριο στο README
+         self.add_employee(101, "Μαρία", "Παπαδοπούλου") #Όπως στο σενάριο στο README
+         self.add_driver(201, "Δημήτρης", "Νικολάου") #Όπως στο σενάριο στο README
          Ηλεκτρονικά = self.add_category("CAT-001", "Ηλεκτρονικά", 2)
-         self.add_palette("2345678901", Ηλεκτρονικά)
-         self.add_palette("3456789012", Ηλεκτρονικά)
+         self.add_palette("2345678901", "Ηλεκτρονικά")
+         self.add_palette("3456789012", "Ηλεκτρονικά")
 
      def add_employee(self, employee_id: int, first_name: str, last_name: str) -> Employee:
         employee = Employee(employee_id, first_name, last_name)
@@ -49,17 +49,17 @@ class WarehouseSystem:
         self.palettes.append(palette) # Πρόσθεση παλέτας στη λίστα
         return palette
 
-     """def add_palette(self, title: str, date: str, time: str, capacity: int) -> ClassSession:
-        session = ClassSession(self._next_session_id, title, date, time, capacity)
-        self.sessions.append(session) # Add session to the list
-        self._next_session_id += 1 # Increment session ID for next session
-        return session"""
+     """def add_shelf() -> Shelf:
+        shelf = Shelf(self._next_shelf_id,.....)
+        self.shelves.append(shelf) # Πρόσθεση ραφιών στη λίστα
+        self._next_shelf_id += 1 
+        return shelf"""
 
-     """def add_palette(self, title: str, date: str, time: str, capacity: int) -> ClassSession:
-        session = ClassSession(self._next_session_id, title, date, time, capacity)
-        self.sessions.append(session) # Add session to the list
-        self._next_session_id += 1 # Increment session ID for next session
-        return session"""
+     """def add_notification() -> Notification:
+        notification = Notification(self._next_notification_id,.........)
+        self.notifications.append(notification) # Προσθήκη ειδοποιήσεων στη λίστα
+        self._next_notification_id += 1 # Increment session ID for next session
+        return notification"""
 
      def find_employee(self, employee_id: int, first_name: str, last_name: str) -> Employee | None:
         for e in self.employees:

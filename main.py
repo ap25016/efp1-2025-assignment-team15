@@ -14,13 +14,17 @@ def main():
         #ΤΟ USE CASE 1 ΞΕΚΙΝΑΕΙ ΑΠΟ ΕΔΩ
         if choice == "1":
             print("Παρακαλώ εισάγετε τα στοιχεια σας:")
-            employee_id = input("ID Υπαλλήλου: ")
+            try:
+                employee_id = int(input("ID Υπαλλήλου: "))
+            except ValueError:
+                print("Μη έγκυρο ID!")
+                continue
             first_name = input("Όνομα: ")
             last_name = input("Επώνυμο: ")
 
             employee = system.find_employee(employee_id, first_name, last_name)
             if employee is None:
-                print("Τα στοιχεία δεν αναγνωρίζονται")
+                print("Τα στοιχεία δεν αναγνωρίζονται!")
                 continue  
             else:
                 print("Επιτυχής Σύνδεση!")
@@ -31,7 +35,11 @@ def main():
         #ΤΟ USE CASE 2 ΞΕΚΙΝΑΕΙ ΑΠΟ ΕΔΩ
         elif choice == "2":
             print("Παρακαλώ εισάγετε τα στοιχεια σας:")
-            driver_id = input("ID Οδηγού: ") 
+            try:
+                driver_id = int(input("ID Οδηγού: "))
+            except ValueError:
+                print("Μη έγκυρο ID!")
+                continue
             first_name = input("Όνομα: ") 
             last_name = input("Επώνυμο: ") 
 
@@ -50,3 +58,6 @@ def main():
         else:
             print("Μη έγκυρη επιλογή.")
 
+
+if __name__ == "__main__":
+    main()
