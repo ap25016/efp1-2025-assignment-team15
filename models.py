@@ -1,4 +1,8 @@
+
+"""Εδώ έχουμε τις classes των αντικειμένων και τις βασικές μεθόδους που εκτελούν με βάση και το class diagram"""
+
 from datetime import datetime
+now = datetime.now().strftime("%H:%M:%S, %d-%m-%Y")
 
 from enum import Enum, auto
 class PaletteStatus(Enum):
@@ -12,7 +16,7 @@ class ProductCategory:
         self.category_name = category_name
         self.product_inventory = product_inventory
 
-    def __str__(self) -> str: # String representation of product category
+    def __str__(self) -> str: # Με αυτό εκτυπώνεται "όμορφα" η κατηγορία
         return f"{self.category_id}: {self.category_name} (Inventory: {self.product_inventory})"
 
     def check_inventory(self):
@@ -33,7 +37,7 @@ class Shelf:
 
     def set_shelf_inventory(self, amount: int):
         self.shelf_inventory += amount
-        print(f"Ράφι {self.shelf_id} περιεχόμενο: {self.shelf_inventory}/{self.capacity}")
+        print(f"Το ράφι {self.shelf_id} έχει περιεχόμενο: {self.shelf_inventory}/{self.capacity}")
 
 class Palette:
     def __init__(self, barcode: str, category: ProductCategory): 
@@ -44,7 +48,7 @@ class Palette:
         self.palette_status = PaletteStatus.STANDBY
         self.shelf = None
 
-    def __str__(self) -> str: # String representation of palette
+    def __str__(self) -> str: # Με αυτό εκτυπώνεται "όμορφα" η παλέτα
         return (f"Παλέτα: {self.barcode} Κατηγορία: {self.category.category_name} ({self.category.category_id})"
                 f" Status: {self.palette_status.value}, Assigned Shelf: {self.shelf}")
 
@@ -106,7 +110,7 @@ class Employee:
         self.first_name = first_name
         self.last_name = last_name
 
-    def __str__(self) -> str: # String representation of employee
+    def __str__(self) -> str: # Με αυτό εκτυπώνεται "όμορφα" ένας υπάλληλος
         return f"{self.employee_id}: {self.first_name} {self.last_name}"
 
     

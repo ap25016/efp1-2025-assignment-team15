@@ -1,3 +1,6 @@
+
+"""Εδώ έχουμε μεθόδους που εκτελει το ίδιο το σύστημα και όχι τα αντικείμενα (δημιουργία/αναζήτηση/ενημέρωση αντικειμένων)"""
+
 from models import Shelf, Palette, ProductCategory, Notification, Driver, Employee
 
 class WarehouseSystem:
@@ -8,7 +11,8 @@ class WarehouseSystem:
         self.palette_statuses: list[PaletteStatus] = [] # Λίστα για αποθήκευση καταστάσεων παλετών
         self.drivers: list[Driver] = [] # Λίστα για αποθήκευση οδηγών
         self.employees: list[Employee] = [] # Λίστα για αποθήκευση υπαλλήλων
-        #Just in case
+        self.notifications: list[Notification] = [] # Λίστα για αποθήκευση ειδοποιήσεων
+        
 
         self._next_driver_id = 201 # Internal counter for driver IDs
         self._next_notification_id = 401 # Internal counter for notification IDs
@@ -26,6 +30,12 @@ class WarehouseSystem:
          Ηλεκτρονικά = self.add_category("CAT-001", "Ηλεκτρονικά", 2)
          self.add_palette("2345678901", "Ηλεκτρονικά")
          self.add_palette("3456789012", "Ηλεκτρονικά")
+         self.add_shelf()
+         self.add_shelf() #θεωρητικά τώρα έχουν μπει δύο ράφια με id 301 και 302 και capacity = 10
+
+
+
+   #~-~-~-~-~-~-~-~- Προσθήκη αντικειμένων στις classes -~-~-~-~-~-~-~-~-~
 
      def add_employee(self, employee_id: int, first_name: str, last_name: str) -> Employee:
         employee = Employee(employee_id, first_name, last_name)
@@ -49,17 +59,20 @@ class WarehouseSystem:
         self.palettes.append(palette) # Πρόσθεση παλέτας στη λίστα
         return palette
 
-     """def add_shelf() -> Shelf:
-        shelf = Shelf(self._next_shelf_id,.....)
+     def add_shelf(self, capacity: int = 10) -> Shelf:
+        shelf = Shelf(self._next_shelf_id, capacity)
         self.shelves.append(shelf) # Πρόσθεση ραφιών στη λίστα
         self._next_shelf_id += 1 
-        return shelf"""
+        return shelf
 
-     """def add_notification() -> Notification:
-        notification = Notification(self._next_notification_id,.........)
+     def add_notification(self) -> Notification:
+        notification = Notification(self._next_notification_id)
         self.notifications.append(notification) # Προσθήκη ειδοποιήσεων στη λίστα
         self._next_notification_id += 1 # Increment session ID for next session
-        return notification"""
+        return notification
+
+
+   #~-~-~-~-~-~-~-~- Για την αυθεντικοποίηση στο κεντρικό μενού -~-~-~-~-~-~-~-~-~
 
      def find_employee(self, employee_id: int, first_name: str, last_name: str) -> Employee | None:
         for e in self.employees:
@@ -77,4 +90,23 @@ class WarehouseSystem:
                 return d
         return None # No match found
 
-   
+
+
+   #~-~-~-~-~-~-~-~- Για τη περίπτωση χρήσης 1 -~-~-~-~-~-~-~-~-~
+
+     def find_category_by_name(self, category_name: str) -> ProductCategory | None:
+        for c in self.categories:
+            if c.category_name == category_name: # Match found!
+                return c 
+        return None # No match found
+        #Επειδή ο υπάλληλος καταχωρεί τη κατηγορία της κάθε παλέτας που παραλαμβάνει, το σύστημα ελέγχει αν υπάρχει
+
+
+
+   #~-~-~-~-~-~-~-~- Για τη περίπτωση χρήσης 2 -~-~-~-~-~-~-~-~-~
+
+     def get_available_shelf(self) -> Shelf | None:
+        for shelf in self.shelves:
+            if not shelf.check_fullness(): 
+               return shelf  #Το σύστημα βρίσκει ράφι με ελεύθερο χώρο (ενώ το ράφι ελέγχει μόνο του αν είναι γεμάτο ή όχι)
+        return None  # Αν όλα τα ράφια είναι γεμάτα
