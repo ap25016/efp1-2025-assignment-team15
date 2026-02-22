@@ -144,7 +144,7 @@ def main():
                             break
                         
                         elif choice == "2":
-                            print("\nΔεν υπάρχουν εκκρεμείς ααραγγελίες!")
+                            print("\nΔεν υπάρχουν εκκρεμείς παραγγελίες!")
                         elif choice == "0":
                             print("\nΑντίο!")
                             break
